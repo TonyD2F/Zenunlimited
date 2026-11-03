@@ -2,66 +2,93 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="#071110">
-    <meta name="description" content="A tiny, endless neon arcade game. Collect light, dodge the void, find your calm.">
-    <title>ZEN / UNLIMITED</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#090d18">
+    <meta name="description" content="A tiny, fully offline 3D-style arcade. Three neon games, ready to play anywhere.">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ZEN ARCADE — Offline Games</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <main class="shell">
+    <main class="app-shell">
       <header class="topbar">
-        <a class="wordmark" href="#" aria-label="Zen Unlimited home"><span class="mark">✳</span> ZEN<span class="slash">/</span>UNLIMITED</a>
+        <a class="brand" href="#home" aria-label="Zen Arcade home"><span class="brand-mark">✳</span><span>ZEN<span class="brand-slash">/</span>ARCADE</span></a>
         <div class="top-actions">
-          <span class="status"><i></i> ARCADE MODE</span>
-          <button id="soundButton" class="icon-button" type="button" aria-label="Turn sound off" title="Toggle sound">♫</button>
+          <span class="offline-pill"><i></i> OFFLINE READY</span>
+          <button class="install-button" id="installButton" type="button" hidden>＋ INSTALL</button>
+          <button class="sound-button" id="soundButton" type="button" aria-label="Turn sound on" title="Toggle sound">♪</button>
         </div>
       </header>
 
-      <section class="intro" aria-labelledby="pageTitle">
-        <div>
-          <p class="eyebrow">A small game for a big universe</p>
-          <h1 id="pageTitle">Find your <em>flow.</em></h1>
+      <section id="homeScreen" class="home-screen">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> YOUR POCKET-SIZE UNIVERSE</p>
+            <h1>Play beyond<br>the <em>ordinary.</em></h1>
+            <p class="hero-description">Three neon worlds. No signal needed.<br>Pick a game and jump right in.</p>
+            <div class="hero-badges"><span>◆ 100% OFFLINE</span><span>◆ MADE FOR TOUCH</span></div>
+          </div>
+          <div class="hero-orbit" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet"><span>✳</span></div><i class="orbit-dot dot-one"></i><i class="orbit-dot dot-two"></i><i class="orbit-dot dot-three"></i></div>
         </div>
-        <p class="intro-copy">Drift through the quiet. Gather light. Don't let the noise catch you.</p>
+
+        <div class="section-heading"><div><p class="eyebrow">THE ARCADE</p><h2>Choose your game<span class="heading-count"> / 03</span></h2></div><span class="swipe-hint">TAP A GAME TO PLAY <b>↗</b></span></div>
+        <section class="game-grid" aria-label="Available games">
+          <button class="game-card card-rush" data-game="rush" type="button">
+            <span class="card-top"><span class="game-number">01 / RUNNER</span><span class="card-arrow">↗</span></span>
+            <span class="mini-scene scene-rush" aria-hidden="true"><i class="scene-sun"></i><i class="scene-road"></i><i class="scene-player"></i><i class="scene-cube cube-a"></i><i class="scene-cube cube-b"></i><i class="scene-gem"></i></span>
+            <span class="card-info"><span><strong>Neon Rush</strong><small>Switch lanes. Stay alive.</small></span><span class="best-label">BEST <b id="best-rush">00000</b></span></span>
+          </button>
+          <button class="game-card card-blast" data-game="blast" type="button">
+            <span class="card-top"><span class="game-number">02 / SHOOTER</span><span class="card-arrow">↗</span></span>
+            <span class="mini-scene scene-blast" aria-hidden="true"><i class="scene-sun"></i><i class="scene-road"></i><i class="scene-player ship"></i><i class="scene-cube enemy-a"></i><i class="scene-cube enemy-b"></i><i class="scene-laser"></i></span>
+            <span class="card-info"><span><strong>Star Blaster</strong><small>Lock on. Blast through.</small></span><span class="best-label">BEST <b id="best-blast">00000</b></span></span>
+          </button>
+          <button class="game-card card-sprint" data-game="sprint" type="button">
+            <span class="card-top"><span class="game-number">03 / JUMPER</span><span class="card-arrow">↗</span></span>
+            <span class="mini-scene scene-sprint" aria-hidden="true"><i class="scene-sun"></i><i class="scene-road"></i><i class="scene-player"></i><i class="scene-cube hurdle"></i><i class="scene-gem gem-two"></i><i class="scene-spark"></i></span>
+            <span class="card-info"><span><strong>Crystal Sprint</strong><small>Jump the gaps. Get glowing.</small></span><span class="best-label">BEST <b id="best-sprint">00000</b></span></span>
+          </button>
+        </section>
+        <footer class="home-footer"><span><i class="footer-spark">✳</i> MADE FOR THE MOMENT</span><span>NO ADS · NO WIFI · JUST PLAY</span></footer>
       </section>
 
-      <section class="game-frame" aria-label="Zen Unlimited arcade game">
-        <div class="hud">
-          <div class="hud-score"><span class="hud-label">SCORE</span><strong id="score">00000</strong></div>
-          <div class="hud-stat"><span class="hud-label">BEST</span><strong id="best">00000</strong></div>
-          <div class="hud-stat level-stat"><span class="hud-label">SECTOR</span><strong id="sector">01</strong></div>
-          <div class="hud-lives" id="lives" aria-label="3 lives"><span class="hud-label">HARMONY</span><strong>● ● ●</strong></div>
-          <button id="pauseButton" class="pause-button" type="button" aria-label="Pause game" disabled><span>Ⅱ</span></button>
-        </div>
-
-        <div class="arena" id="arena">
-          <canvas id="gameCanvas" aria-label="Game area. Move with arrow keys or WASD, or drag with a finger."></canvas>
-          <div class="scanline" aria-hidden="true"></div>
-          <div class="overlay" id="overlay">
-            <div class="overlay-card" id="overlayCard">
-              <div class="orbit-icon" aria-hidden="true"><span>✳</span></div>
-              <p class="eyebrow" id="overlayEyebrow">READY WHEN YOU ARE</p>
-              <h2 id="overlayTitle">Take a breath.</h2>
-              <p class="overlay-copy" id="overlayCopy">Collect the glowing fragments. Keep clear of the restless ones. How long can you stay in the flow?</p>
-              <button id="playButton" class="play-button" type="button"><span id="playLabel">BEGIN DRIFT</span><span aria-hidden="true">↗</span></button>
-              <p class="key-hint" id="keyHint">MOVE <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> OR <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd><span class="hint-divider">·</span> DASH <kbd>SPACE</kbd></p>
+      <section id="gameScreen" class="game-screen" hidden aria-label="Arcade game">
+        <div class="game-topline"><button id="backButton" class="back-button" type="button"><span>←</span> ARCADE</button><div class="live-label"><i></i> PLAYING OFFLINE</div></div>
+        <div class="game-heading"><div><p class="eyebrow" id="gameCategory">01 / RUNNER</p><h1 id="gameTitle">Neon Rush</h1></div><button id="pauseButton" class="pause-button" type="button" aria-label="Pause game" disabled>Ⅱ</button></div>
+        <section class="game-frame" aria-label="Game arena">
+          <div class="hud">
+            <div><span class="hud-label">SCORE</span><strong id="score">00000</strong></div>
+            <div><span class="hud-label">BEST</span><strong id="best">00000</strong></div>
+            <div><span class="hud-label">LEVEL</span><strong id="level">01</strong></div>
+            <div class="hud-lives"><span class="hud-label">SHIELDS</span><strong id="lives">● ● ●</strong></div>
+          </div>
+          <div class="arena" id="arena">
+            <canvas id="gameCanvas" aria-label="3D arcade game. Use left and right buttons to switch lanes and action to jump or fire."></canvas>
+            <div class="arena-vignette" aria-hidden="true"></div>
+            <div class="overlay" id="overlay">
+              <div class="overlay-card">
+                <div class="overlay-icon" id="overlayIcon" aria-hidden="true">✳</div>
+                <p class="eyebrow" id="overlayEyebrow">READY PLAYER ONE</p>
+                <h2 id="overlayTitle">Ready to run?</h2>
+                <p class="overlay-copy" id="overlayCopy">Dodge the blocks, scoop up the energy, and see how far your reflexes can take you.</p>
+                <button id="playButton" class="play-button" type="button"><span id="playLabel">START GAME</span><span>↗</span></button>
+                <p class="key-hint" id="keyHint">← → TO MOVE <span>·</span> SPACE TO ACT</p>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="game-footer">
-          <span><i class="footer-dot mint"></i> FRAGMENTS <b>+100</b></span>
-          <span><i class="footer-dot coral"></i> STATIC <b>AVOID</b></span>
-          <span class="footer-tip">A little focus goes a long way.</span>
-        </div>
+          <div class="game-controls" aria-label="Touch controls">
+            <button id="leftButton" class="control-button" type="button" aria-label="Move left">←</button>
+            <span class="controls-hint" id="controlsHint">CHANGE LANES</span>
+            <button id="actionButton" class="control-button action-control" type="button" aria-label="Action">✦</button>
+            <span class="controls-hint action-hint" id="actionHint">ACTION</span>
+            <button id="rightButton" class="control-button" type="button" aria-label="Move right">→</button>
+          </div>
+        </section>
+        <p class="game-note"><span>✳</span> Progress saves on this device. All games run without an internet connection.</p>
       </section>
-
-      <footer class="page-footer">
-        <span>MADE FOR THE MOMENT <span class="footer-star">✳</span></span>
-        <span class="footer-right">NO DOWNLOAD · JUST PLAY</span>
-      </footer>
     </main>
     <script src="game.js"></script>
   </body>
